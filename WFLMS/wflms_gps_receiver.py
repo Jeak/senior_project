@@ -1,6 +1,6 @@
 # Python 3 WFLMS Implementation V1.0
 # Authors: Robert Goldie, Jack Gallegos, Cal Poly San Luis Obispo 2020
-
+# add comment
 # Dependencies: mgrs, bitstring, time
 #import mgrs
 from bitstring import BitArray, BitStream
@@ -43,10 +43,10 @@ while True:
 		display.fill(0)
 		display.text('- PKT Received -', 15, 20, 1)
 		display.show()
-		
+
 		encoded_byteliteral = BitArray(packet)
 		decoded_pkt = decode_lora_packet(encoded_byteliteral)
-		
+
 		print("\nReceived Packet:\n")
 		decoded_pkt.dump_to_console()
 		time.sleep(2)
