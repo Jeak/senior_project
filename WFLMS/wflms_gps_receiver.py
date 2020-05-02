@@ -47,12 +47,12 @@ while True:
 			display.show()
 			show_rx = False
 			i += 1
-		elif (0 < i < 200):
+		elif (0 < i <= 200):
 			display.fill(0)
 			display.text('- PKT Received -', 15, 20, 1)
 			display.show()
 			i += 1
-			if i == 2000: i = 0
+			if i == 200: i = 0
 		else:
 			display.fill(0)
 			display.text('- Waiting for PKT -', 15, 20, 1)
