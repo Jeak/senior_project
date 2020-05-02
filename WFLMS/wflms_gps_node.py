@@ -254,6 +254,9 @@ def get_MGRS():
 	m = mgrs.MGRS()
 	while location.mode <= 1:
 		location = gpsd.get_current()
+		display.fill(0)
+		display.text('- Waiting for GPS -', 15, 20, 1)
+		display.show()
 	coords_MGRS = m.toMGRS(location.lat, location.lon)
 	coords_MGRS = str(coords_MGRS.decode("ascii"))
 	return coords_MGRS
