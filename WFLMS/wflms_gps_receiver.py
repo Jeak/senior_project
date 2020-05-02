@@ -36,6 +36,7 @@ rfm9x.node = 0x03
 rfm9x.destination = 0x04
 prev_packet = None
 i = 0
+show_rx_mess = False
 
 while True:
 	packet = rfm9x.receive(keep_listening=True,with_header=False,with_ack=True,timeout=None)
