@@ -31,7 +31,7 @@ spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 rfm9x.tx_power = 23
 
-Receive all incoming packets
+#Receive all incoming packets
 rfm9x.node = 0xff
 
 rfm9x.destination = 0xff
