@@ -47,7 +47,7 @@ while True:
 			display.show()
 			show_rx = False
 			i += 1
-		elif (0 < i < 2000):
+		elif (0 < i < 200):
 			display.fill(0)
 			display.text('- PKT Received -', 15, 20, 1)
 			display.show()
