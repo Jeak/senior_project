@@ -34,10 +34,10 @@ rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 
 # See RFM9x circuitpython library for more documentation.
 # Repeater Node ID is 1. This is to prevent multipathed packets from being double-counted in the Incident Command node's FIFO and increases channel capacity.
-rfm9x.node = 0x01
+rfm9x.node = 0x02
 rfm9x.tx_power = 23
 prev_packet = None
-rfm9x.destination = 0x02    # Send to incident command (ID: 2)
+rfm9x.destination = 0x03    # Send to incident command (ID: 2)
 i = 0                       # Index for counting timer delay
 
 while True:

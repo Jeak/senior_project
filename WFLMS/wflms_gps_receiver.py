@@ -32,8 +32,8 @@ rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 rfm9x.tx_power = 23
 
 #Receive only packets from the Repeater (Node id of 2)
-rfm9x.node = 0x02
-rfm9x.destination = 0x03
+rfm9x.node = 0x03
+rfm9x.destination = 0x04
 prev_packet = None
 
 
