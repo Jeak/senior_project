@@ -48,7 +48,7 @@ while True:
 		display.text('- Waiting for PKT -', 15, 20, 1)
 		display.show()
 	else:
-		# If properly addresses packet received, send it out
+        # If properly addresses packet received, send it out
         rfm9x.send(packet)
 
 ################################################################################
