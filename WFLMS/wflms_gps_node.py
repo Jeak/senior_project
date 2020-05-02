@@ -286,7 +286,7 @@ while True:
 
 		encoded_byteliteral = encode_lora_packet(currentStatus)
 		print("Destination ID: " + str(rfm9x.destination))
-		rfm9x.send(encoded_byteliteral.bytes)
+		rfm9x.send_with_ack(encoded_byteliteral.bytes)
 
 		display.fill(0)
 		display.text('- Sent PKT -', 15, 20, 1)

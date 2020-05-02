@@ -38,19 +38,22 @@ prev_packet = None
 
 
 while True:
-	packet = rfm9x.receive()
+	packet = rfm9x.receive(with_ack=True)
 	if packet is None:
 		display.fill(0)
 		display.text('- Waiting for PKT -', 15, 20, 1)
 		display.show()
 	else:
-		display.fill(0)
-		display.text('- PKT Received -', 15, 20, 1)
-		display.show()
+		try:
+			display.fill(0)
+			display.text('- PKT Received -', 15, 20, 1)
+			display.show()
 
-		encoded_byteliteral = BitArray(packet)
-		decoded_pkt = decode_lora_packet(encoded_byteliteral)
-
-		print("\nReceived Packet:\n")
-		decoded_pkt.dump_to_console()
+			encoded_byteliteral = BitArray(packet)
+			decoded_pkt = decode_lora_packet(encoded_byteliteral)
+		except UnicodeDecodeError:
+			print("\nUnicode Decode Error!\n")
+		else:
+			print("\nReceived Packet:\n")
+			decoded_pkt.dump_to_console()
 		#time.sleep(2)
