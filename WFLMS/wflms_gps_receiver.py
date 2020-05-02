@@ -33,8 +33,7 @@ rfm9x.tx_power = 23
 
 #Receive only packets from the Repeater (Node id of 2)
 rfm9x.node = 0x02
-
-rfm9x.destination = 0xff
+rfm9x.destination = 0x03
 prev_packet = None
 
 
