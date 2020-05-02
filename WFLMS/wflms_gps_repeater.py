@@ -50,8 +50,6 @@ while True:
 	else:
         # If properly addresses packet received, send it out
         rfm9x.send(packet)
-
-################################################################################
         # Testing for decoded packet to confirm
 		encoded_byteliteral = BitArray(packet)
 		decoded_pkt = decode_lora_packet(encoded_byteliteral)
@@ -72,4 +70,3 @@ while True:
         display.fill(0)
         display.show()
         i = 0
-################################################################################
