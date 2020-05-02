@@ -37,7 +37,7 @@ rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 rfm9x.node = 0x01
 rfm9x.tx_power = 23
 prev_packet = None
-rfm9x.destination = 0xff    # Send to all receivers, including incident command (broadcast)
+rfm9x.destination = 0x02    # Send to incident command (ID: 2)
 i = 0                       # Index for counting timer delay
 
 while True:
