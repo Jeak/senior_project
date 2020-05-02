@@ -49,12 +49,12 @@ while True:
 		display.show()
 	else:
         # If properly addresses packet received, send it out
-        rfm9x.send(packet)
-        # Testing for decoded packet to confirm
+		rfm9x.send(packet)
+		# Testing for decoded packet to confirm
 		encoded_byteliteral = BitArray(packet)
 		decoded_pkt = decode_lora_packet(encoded_byteliteral)
-		# Print to console
-        print("\nReceived Packet:\n")
+        # Print to console
+		print("\nReceived Packet:\n")
         decoded_pkt.dump_to_console()
         show_rx_mess = True
 
