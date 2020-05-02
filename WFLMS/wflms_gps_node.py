@@ -284,7 +284,7 @@ while True:
 		currentStatus.dump_to_console()
 
 		encoded_byteliteral = encode_lora_packet(currentStatus)
-
+		print("Destination ID: " + str(rfm9x.destination))
 		rfm9x.send(encoded_byteliteral.bytes)
 
 		display.fill(0)
