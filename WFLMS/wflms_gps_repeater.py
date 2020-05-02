@@ -39,6 +39,7 @@ rfm9x.tx_power = 23
 prev_packet = None
 rfm9x.destination = 0x03    # Send to incident command (ID: 2)
 i = 0                       # Index for counting timer delay
+show_rx_mess = False
 
 while True:
 	# Receive a packet
@@ -57,7 +58,6 @@ while True:
 		print("\nReceived Packet:\n")
 		decoded_pkt.dump_to_console()
 		show_rx_mess = True
-
 		i += 1
 
 		if show_rx_mess == True:
