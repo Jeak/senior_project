@@ -30,6 +30,11 @@ RESET = DigitalInOut(board.D25)
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 rfm9x.tx_power = 23
+
+Receive all incoming packets
+rfm9x.node = 0xff
+
+rfm9x.destination = 0xff
 prev_packet = None
 
 
@@ -49,4 +54,4 @@ while True:
 
 		print("\nReceived Packet:\n")
 		decoded_pkt.dump_to_console()
-		time.sleep(2)
+		#time.sleep(2)

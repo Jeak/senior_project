@@ -46,6 +46,8 @@ RESET = DigitalInOut(board.D25)
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 rfm9x.tx_power = 23
+# Set Target node to 1 (Repeater)
+rfm9x.destination = 1
 prev_packet = None
 
 
@@ -84,12 +86,12 @@ def init_num(crew_type):	# returns an integer to be assigned to SRC_NUM
 	elif crew_type == 9: crew_abbrev = 'ATGS'
 	elif crew_type == 10: crew_abbrev = 'IC'
 	else: return 'Error'
-	
+
 	num_list = ['0','1','2','3','4','5','6','7','8','9']
 	crew_num = 0
 	n = 0
 	m = 0
-	
+
 # = Crew 1st Digit Select
 	n = 0
 	while btnB.value:
@@ -98,7 +100,7 @@ def init_num(crew_type):	# returns an integer to be assigned to SRC_NUM
 		display.show()
 
 		if not btnA.value:
-			n += 1 
+			n += 1
 			if n > 9: n = 0
 			display.fill(0)
 			display.text('Crew Number:  ' + crew_abbrev + num_list[n] + '_?' , 0, 0, 1)
@@ -113,7 +115,7 @@ def init_num(crew_type):	# returns an integer to be assigned to SRC_NUM
 		display.show()
 
 		if not btnA.value:
-			m += 1 
+			m += 1
 			if m > 9: m = 0
 			display.fill(0)
 			display.text('Crew Number:  ' + crew_abbrev  + num_list[n] + num_list[m] + '?' , 0, 0, 1)
@@ -127,7 +129,7 @@ def init_num(crew_type):	# returns an integer to be assigned to SRC_NUM
 
 def main_display(packetObject):
 	display.fill(0)	# draw a box to clear the image
-	
+
 	if packetObject.SRC_TYPE == 0: crew_abbrev = 'H'
 	elif packetObject.SRC_TYPE == 1: crew_abbrev = 'EC'
 	elif packetObject.SRC_TYPE == 2: crew_abbrev = 'ST'
@@ -140,13 +142,13 @@ def main_display(packetObject):
 	elif packetObject.SRC_TYPE == 9: crew_abbrev = 'ATGS'
 	elif packetObject.SRC_TYPE == 10: crew_abbrev = 'IC'
 	else: crew_abbrev = ('Error')
-	
+
 	if packetObject.RSRC_STAT == 0: resource = 'Active'
 	elif packetObject.RSRC_STAT == 1: resource = 'On break'
 	elif packetObject.RSRC_STAT == 2: resource = 'In transit'
 	elif packetObject.RSRC_STAT == 3: resource = 'Out of service'
 	else: resource = 'Error'
-	
+
 	if packetObject.FLINE_STAT == 0: fline = 'No'
 	elif packetObject.FLINE_STAT == 1: fline = 'Yes'
 	else: fline = 'Error'
@@ -154,7 +156,7 @@ def main_display(packetObject):
 	if packetObject.EMERG_FLG == 0: emerg = 'No'
 	elif packetObject.EMERG_FLG == 1: emerg = 'Yes'
 	else: emerg = 'Error'
-		
+
 	display.text('Crew:      ' + crew_abbrev + str(packetObject.SRC_NUM), 0, 0, 1)
 	display.text('Status:    ' + resource, 0, 8, 1)
 	display.text('Fireline:  ' + fline, 0, 16, 1)
@@ -168,7 +170,7 @@ def main_menu(packetObject):
 	N_Y_options = ['No','Yes']
 	n = 0
 	time.sleep(0.200)
-	
+
 	while btnB.value:
 		display.fill(0)
 		display.text(options[n]+'?' , 0, 0, 1)
@@ -182,7 +184,7 @@ def main_menu(packetObject):
 			display.show()
 			time.sleep(0.200)
 	time.sleep(0.200)
-	
+
 	if n == 0:	# Status change
 		m = 0
 		while btnB.value:
@@ -198,7 +200,7 @@ def main_menu(packetObject):
 				display.show()
 				time.sleep(0.200)
 		time.sleep(0.200)
-		
+
 		packetObject.RSRC_STAT = m
 		if packetObject.RSRC_STAT == 1: packetObject.FLINE_STAT = 0	# if on break, also deactivate fireline construction
 		return packetObject
@@ -216,12 +218,12 @@ def main_menu(packetObject):
 				display.fill(0)
 				display.text(N_Y_options[i]+'?' , 0, 0, 1)
 				display.show()
-				time.sleep(0.200)	
+				time.sleep(0.200)
 		time.sleep(0.200)
-		
+
 		packetObject.FLINE_STAT = i
 		return packetObject
-		
+
 	elif n == 2:	# Emergency change
 		j = 1
 		while btnB.value:
@@ -235,9 +237,9 @@ def main_menu(packetObject):
 				display.fill(0)
 				display.text(N_Y_options[j]+'?' , 0, 0, 1)
 				display.show()
-				time.sleep(0.200)		
+				time.sleep(0.200)
 		time.sleep(0.200)
-		
+
 		packetObject.EMERG_FLG = j
 		return packetObject
 
@@ -270,13 +272,13 @@ currentStatus.MGRS_LOC = get_MGRS()
 currentStatus.DEST_TYPE = 10
 currentStatus.DEST_NUM = 1
 
-	
+
 while True:
 	i += 1
 	main_display(currentStatus)
 	if ((not btnA.value) or (not btnB.value)):
 		currentStatus = main_menu(currentStatus)
-	
+
 	if i > 200:
 		print("\nPacket before Encoding\n")
 		currentStatus.dump_to_console()
@@ -284,7 +286,7 @@ while True:
 		encoded_byteliteral = encode_lora_packet(currentStatus)
 
 		rfm9x.send(encoded_byteliteral.bytes)
-		
+
 		display.fill(0)
 		display.text('- Sent PKT -', 15, 20, 1)
 		display.show()

@@ -36,12 +36,12 @@ prev_packet = None
 currentStatus = Packet() 	# Create currentStatus as PAcket class
 currentStatus.EMERG_FLG = 1
 currentStatus.MGRS_LOC = get_MGRS()
-	
+
 while True:
 	print("\nPacket before Encoding\n")
 	encoded_byteliteral = encode_lora_packet(currentStatus)
 	currentStatus.dump_to_console()
-	
+
 	decoded_pkt = decode_lora_packet(encoded_byteliteral)
 	print("\nPacket after Decoding\n")
 	decoded_pkt.dump_to_console()
