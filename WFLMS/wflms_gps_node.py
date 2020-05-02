@@ -47,7 +47,7 @@ spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 rfm9x.tx_power = 23
 # Set Target node to 1 (Repeater)
-rfm9x.node = 0x01
+rfm9x.node = 0x02
 rfm9x.destination = 0x02
 prev_packet = None
 
