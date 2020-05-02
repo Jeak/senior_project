@@ -42,14 +42,14 @@ i = 0                       # Index for counting timer delay
 
 while True:
 	# Receive a packet
-	packet = rfm9x.receive()
+	packet = rfm9x.receive(keep_listening=True,with_header=False,with_ack=True,timeout=None)
 	if packet is None:
 		display.fill(0)
 		display.text('- Waiting for PKT -', 15, 20, 1)
 		display.show()
 	else:
 		# If properly addresses packet received, send it out
-		rfm9x.send(packet)
+		rfm9x.send_with_ack(packet)
 		# Testing for decoded packet to confirm
 		encoded_byteliteral = BitArray(packet)
 		decoded_pkt = decode_lora_packet(encoded_byteliteral)
