@@ -38,7 +38,7 @@ prev_packet = None
 
 
 while True:
-	packet = rfm9x.receive(*,keep_listening=True,with_header=False,with_ack=True,timeout=None)
+	packet = rfm9x.receive(keep_listening=True,with_header=False,with_ack=True,timeout=None)
 	if packet is None:
 		display.fill(0)
 		display.text('- Waiting for PKT -', 15, 20, 1)
