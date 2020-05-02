@@ -292,30 +292,7 @@ while True:
 
 		encoded_byteliteral = encode_lora_packet(currentStatus)
 		rfm9x.send_with_ack(encoded_byteliteral.bytes)
-
-		display.fill(0)
-		display.text('- Sent PKT -', 15, 20, 1)
-		display.show()
 		last_pkt_tx = time.time()
-
-
-"""
-while True:
-	i += 1
-	main_display(currentStatus)
-	if ((not btnA.value) or (not btnB.value)):
-		currentStatus = main_menu(currentStatus)
-
-	if i > 200:
-		print("\nPacket before Encoding\n")
-		currentStatus.dump_to_console()
-
-		encoded_byteliteral = encode_lora_packet(currentStatus)
-		rfm9x.send_with_ack(encoded_byteliteral.bytes)
-
 		display.fill(0)
 		display.text('- Sent PKT -', 15, 20, 1)
 		display.show()
-		time.sleep(2)
-		i = 0
-"""

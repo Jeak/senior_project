@@ -38,35 +38,27 @@ rfm9x.node = 0x02
 rfm9x.tx_power = 23
 prev_packet = None
 rfm9x.destination = 0x03    # Send to incident command (ID: 2)
-i = 0                       # Index for counting timer delay
-show_rx_mess = False
+last_pkt_tx = 0
 
 while True:
 	# Receive a packet
 	packet = rfm9x.receive(keep_listening=True,with_header=False,with_ack=True,timeout=None)
 	if packet is None:
-		display.fill(0)
-		display.text('- Waiting for PKT -', 15, 20, 1)
-		display.show()
+		if (time.time() - last_pkt_tx > 1):
+			display.fill(0)
+			display.text('- Waiting for PKT -', 15, 20, 1)
+			display.show()
 	else:
 		# If properly addresses packet received, send it out
 		rfm9x.send_with_ack(packet)
+		last_pkt_tx = time.time()
+		display.fill(0)
+		display.text('- Sent PKT -', 15, 20, 1)
+		display.show()
+
 		# Testing for decoded packet to confirm
 		encoded_byteliteral = BitArray(packet)
 		decoded_pkt = decode_lora_packet(encoded_byteliteral)
 		# Print to console
 		print("\nReceived Packet:\n")
 		decoded_pkt.dump_to_console()
-		show_rx_mess = True
-		i += 1
-
-		if show_rx_mess == True:
-			display.fill(0)
-			display.text('- PKT Received -', 15, 20, 1)
-			display.show()
-			show_rx = False
-			i = 0
-		elif i > 2000:
-			display.fill(0)
-			display.show()
-			i = 0
