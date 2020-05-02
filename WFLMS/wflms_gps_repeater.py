@@ -48,25 +48,25 @@ while True:
 		display.text('- Waiting for PKT -', 15, 20, 1)
 		display.show()
 	else:
-        # If properly addresses packet received, send it out
+		# If properly addresses packet received, send it out
 		rfm9x.send(packet)
 		# Testing for decoded packet to confirm
 		encoded_byteliteral = BitArray(packet)
 		decoded_pkt = decode_lora_packet(encoded_byteliteral)
-        # Print to console
+		# Print to console
 		print("\nReceived Packet:\n")
-        decoded_pkt.dump_to_console()
-        show_rx_mess = True
+		decoded_pkt.dump_to_console()
+		show_rx_mess = True
 
-    i += 1
+		i += 1
 
-    if show_rx_mess == True:
-        display.fill(0)
-        display.text('- PKT Received -', 15, 20, 1)
-        display.show()
-        show_rx = False
-        i = 0
-    elif i > 2000:
-        display.fill(0)
-        display.show()
-        i = 0
+		if show_rx_mess == True:
+			display.fill(0)
+			display.text('- PKT Received -', 15, 20, 1)
+			display.show()
+			show_rx = False
+			i = 0
+		elif i > 2000:
+			display.fill(0)
+			display.show()
+			i = 0
