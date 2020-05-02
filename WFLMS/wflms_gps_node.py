@@ -293,9 +293,9 @@ while True:
 
 		encoded_byteliteral = encode_lora_packet(currentStatus)
 
-		time_a = time.time()  	# test
+		time_a = time.time_ns()  	# test
 		rfm9x.send_with_ack(encoded_byteliteral.bytes)
-		time_b = time.time() 	# test
+		time_b = time.time_ns() 	# test
 		print('TX Duration: '+str()(time_a - time_b)) 	# test
 
 		last_pkt_tx = time.time()
