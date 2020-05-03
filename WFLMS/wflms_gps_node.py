@@ -296,7 +296,7 @@ while True:
 		time_a = time.time_ns()  	# test
 		rfm9x.send_with_ack(encoded_byteliteral.bytes)
 		time_b = time.time_ns() 	# test
-		print('TX Duration: '+str()(time_a - time_b)) 	# test
+		print('TX Duration: '+str((time_a - time_b))) 	# test
 
 		last_pkt_tx = time.time()
 		display.fill(0)
