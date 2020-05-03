@@ -276,9 +276,6 @@ currentStatus.DEST_NUM = 1
 
 last_pkt_tx = 0
 
-time_a = 0 	# test
-time_b = 0 	# test
-
 while True:
 	while (time.time() - last_pkt_tx <= 1):
 			if ((not btnA.value) or (not btnB.value)):
@@ -292,12 +289,7 @@ while True:
 		currentStatus.dump_to_console()
 
 		encoded_byteliteral = encode_lora_packet(currentStatus)
-
-		time_a = time.time_ns()  	# test
 		rfm9x.send_with_ack(encoded_byteliteral.bytes)
-		time_b = time.time_ns() 	# test
-		print('TX Duration: '+str((time_a - time_b))) 	# test
-
 		last_pkt_tx = time.time()
 		display.fill(0)
 		display.text('- Sent PKT -', 15, 20, 1)
