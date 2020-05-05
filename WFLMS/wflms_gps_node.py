@@ -289,7 +289,7 @@ while True:
 		currentStatus.dump_to_console()
 
 		encoded_byteliteral = encode_lora_packet(currentStatus)
-		rfm9x.send_with_ack(encoded_byteliteral.bytes)
+		#rfm9x.send_with_ack(encoded_byteliteral.bytes)
 		last_pkt_tx = time.time()
 		display.fill(0)
 		display.text('- Sent PKT -', 15, 20, 1)
