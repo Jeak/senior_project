@@ -7,6 +7,7 @@ import json
 import time
 from wflms_libs import *
 
+# Create MGRS object
 m = mgrs.MGRS()
 
 # Create fake packet object
@@ -23,7 +24,7 @@ currentStatus.DEST_NUM = 1
 currentStatus.RX_TIME = time.ctime()
 # Established and calculated upon receive
 # Convert MGRS to lat and lon
-lat_lon = m.toLatLon (currentStatus.MGRS_LOC)
+lat_lon = m.toLatLon(currentStatus.MGRS_LOC)
 currentStatus.LAT = lat_lon[1]
 currentStatus.LON = lat_lon[2]
 
