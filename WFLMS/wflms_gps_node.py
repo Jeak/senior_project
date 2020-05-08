@@ -250,8 +250,10 @@ def main_menu(packetObject):
 		return packetObject
 
 def get_MGRS():
+	# Get the location from the GPS. Outputs the MGRS Grid ref as a string.
 	location = gpsd.get_current()
 	m = mgrs.MGRS()
+	# Mode checking (https://github.com/MartijnBraam/gpsd-py3/blob/master/DOCS.md)
 	while location.mode <= 1:
 		location = gpsd.get_current()
 		display.fill(0)
@@ -276,6 +278,7 @@ currentStatus.DEST_NUM = 1
 
 last_pkt_tx = 0
 
+# Main program routine
 while True:
 	while (time.time() - last_pkt_tx <= 1):
 			if ((not btnA.value) or (not btnB.value)):
@@ -287,8 +290,10 @@ while True:
 	if (time.time() - last_pkt_tx > 10):
 		print("\nPacket before Encoding\n")
 		currentStatus.dump_to_console()
-
+		
+		# Encode the current status as a byte literal using encode function
 		encoded_byteliteral = encode_lora_packet(currentStatus)
+		# Transmit the current status
 		rfm9x.send_with_ack(encoded_byteliteral.bytes)
 		last_pkt_tx = time.time()
 		display.fill(0)

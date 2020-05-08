@@ -22,7 +22,7 @@ def encode_lora_packet(packetObject):
 	encoded_lora_packet[2:4] = packetObject.RSRC_STAT
 
 	# MGRS Location Encoding
-	encoded_lora_packet[4:124] = bytes(packetObject.MGRS_LOC, "ascii")
+	encoded_lora_packet[4:124] = packetObject.MGRS_LOC.encode(encoding="utf-8",errors="ignore")
 
 	encoded_lora_packet[124:132] = 0
 
@@ -59,7 +59,7 @@ def decode_lora_packet(encodedByteLiteral):
 	packetObject.RSRC_STAT = encodedByteLiteral[2:4].uint
 
 	# MGRS Location Decoding
-	packetObject.MGRS_LOC = bytes.fromhex(str(encodedByteLiteral[4:124].hex)).decode('ascii')
+	packetObject.MGRS_LOC = bytes.fromhex(str(encodedByteLiteral[4:124].hex)).decode('utf-8')
 
 	# Destination Number Encoding
 	packetObject.DEST_NUM = encodedByteLiteral[132:140].uint

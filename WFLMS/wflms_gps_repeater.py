@@ -55,10 +55,13 @@ while True:
 		display.fill(0)
 		display.text('- Sent PKT -', 15, 20, 1)
 		display.show()
-
-		# Testing for decoded packet to confirm
-		encoded_byteliteral = BitArray(packet)
-		decoded_pkt = decode_lora_packet(encoded_byteliteral)
-		# Print to console
-		print("\nReceived Packet:\n")
-		decoded_pkt.dump_to_console()
+		try:
+			# Testing for decoded packet to confirm
+			encoded_byteliteral = BitArray(packet)
+			decoded_pkt = decode_lora_packet(encoded_byteliteral)
+		except UnicodeDecodeError:
+			print("\nUnicode Decode Error!")
+		else:
+			# Print to console
+			print("\nReceived Packet:\n")
+			decoded_pkt.dump_to_console()
