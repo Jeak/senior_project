@@ -24,9 +24,9 @@ currentStatus.DEST_NUM = 1
 currentStatus.RX_TIME = time.ctime()
 # Established and calculated upon receive
 # Convert MGRS to lat and lon
-lat_lon = m.toLatLon(currentStatus.MGRS_LOC)
-print(lat_lon)
-print(type(lat_lon))
+#lat_lon = m.toLatLon(currentStatus.MGRS_LOC)
+#print(lat_lon)
+#print(type(lat_lon))
 #currentStatus.LAT = lat_lon[1]
 #currentStatus.LON = lat_lon[2]
 
