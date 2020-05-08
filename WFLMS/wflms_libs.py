@@ -87,6 +87,9 @@ class Packet:
 		self.DEST_TYPE = 0
 		self.SRC_NUM = 0
 		self.SRC_TYPE = 0
+		self.RX_TIME = 0 # RX Time encoded as ctime (for now)
+		self.LAT = 0
+		self.LON = 0
 
 		# By default, packets target ATGS (repeater station)
 
@@ -99,3 +102,9 @@ class Packet:
 		print('DEST_TYPE:	' + str(self.DEST_TYPE))
 		print('SRC_NUM:	' + str(self.SRC_NUM))
 		print('SRC_TYPE:	' + str(self.SRC_TYPE))
+		if self.RX_TIME != 0:
+			print('RX_TIME:	' + str(self.RX_TIME))
+		if self.LAT != 0:
+			print('LAT:	' + str(self.LAT))
+		if self.LON != 0:
+			print('LON:	' + str(self.LON))
