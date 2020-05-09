@@ -103,7 +103,7 @@ while True:
 
         # Send the revised dictionary out as a text file
         with open('data.txt', 'w') as outfile:
-        json.dump(data, outfile)
+            json.dump(data, outfile)
 
         print("\nReceived Packet:\n")
         decoded_pkt.dump_to_console()
