@@ -66,46 +66,31 @@ while True:
         decoded_pkt.decode_source_unit_id() # Establish unit id numerically
 
         # Check if unit id is same as any others in the dict
-        try:
-            print('It is trying!')
-            # go through each element in the "data" dict. start at element 0
-            for i in range(len(data['active_crews'])):
-                if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
-                    print('It is in the iffer')
-                    #update entry for that unit.
-                    data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
-                    data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
-                    data['active_crews'][i]['rsrc_stat'] == decoded_pkt.RSRC_STAT
-                    data['active_crews'][i]['lat'] == decoded_pkt.LAT
-                    data['active_crews'][i]['lon'] == decoded_pkt.LON
-                    data['active_crews'][i]['rx_time'] == decoded_pkt.RX_TIME
+        print('It is here!')
+        # go through each element in the "data" dict. start at element 0
+        for i in range(len(data['active_crews'])):
+            if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
+                print('It is in the iffer')
+                #update entry for that unit.
+                data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
+                data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
+                data['active_crews'][i]['rsrc_stat'] == decoded_pkt.RSRC_STAT
+                data['active_crews'][i]['lat'] == decoded_pkt.LAT
+                data['active_crews'][i]['lon'] == decoded_pkt.LON
+                data['active_crews'][i]['rx_time'] == decoded_pkt.RX_TIME
 
-                else:
-                    # Else, make a new entry, as the unit hasn't been seen before
-                    print('it do be in the else sometimes')
-                    data['active_crews'].append({
-                    'unit_number': decoded_pkt.DICT_NUM,
-                    'emerg_flg': decoded_pkt.EMERG_FLG,
-                    'fline_stat': decoded_pkt.FLINE_STAT,
-                    'rsrc_stat': decoded_pkt.RSRC_STAT,
-                    'lat': decoded_pkt.LAT,
-                    'lon': decoded_pkt.LON,
-                    'rx_time': decoded_pkt.RX_TIME,
-                    })
-
-        except IndexError:
-            # List is empty on first entry
-            # Append the entry
-            print('error')
-            data['active_crews'].append({
-            'unit_number': decoded_pkt.DICT_NUM,
-            'emerg_flg': decoded_pkt.EMERG_FLG,
-            'fline_stat': decoded_pkt.FLINE_STAT,
-            'rsrc_stat': decoded_pkt.RSRC_STAT,
-            'lat': decoded_pkt.LAT,
-            'lon': decoded_pkt.LON,
-            'rx_time': decoded_pkt.RX_TIME,
-            })
+            else:
+                # Else, make a new entry, as the unit hasn't been seen before
+                print('it do be in the else sometimes')
+                data['active_crews'].append({
+                'unit_number': decoded_pkt.DICT_NUM,
+                'emerg_flg': decoded_pkt.EMERG_FLG,
+                'fline_stat': decoded_pkt.FLINE_STAT,
+                'rsrc_stat': decoded_pkt.RSRC_STAT,
+                'lat': decoded_pkt.LAT,
+                'lon': decoded_pkt.LON,
+                'rx_time': decoded_pkt.RX_TIME,
+                })
 
         # Send the revised dictionary out as a text file
         #with open('data.txt', 'w') as outfile:
