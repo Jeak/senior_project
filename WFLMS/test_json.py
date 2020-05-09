@@ -31,8 +31,8 @@ except mgrs.core.RTreeError:
 
 print(lat_lon)
 print(type(lat_lon))
-currentStatus.LAT = lat_lon[1]
-currentStatus.LON = lat_lon[2]
+currentStatus.LAT = lat_lon[0]
+currentStatus.LON = lat_lon[1]
 
 print('Dump to console:')
 currentStatus.dump_to_console()
