@@ -1,9 +1,10 @@
 # Python 3 WFLMS Implementation V1.0
 # Authors: Robert Goldie, Jack Gallegos, Cal Poly San Luis Obispo 2020
 
-# Dependencies: bitstring, time
+# Dependencies: bitstring, time, mgrs
 import binascii
 from bitstring import BitArray, BitStream
+import mgrs
 
 # Packet encoding function
 def encode_lora_packet(packetObject):
@@ -111,6 +112,8 @@ class Packet:
 			print('LON:	' + str(self.LON))
 
 	def calc_lat_lon(self):
+		# Create MGRS object
+		m = mgrs.MGRS()
 		lat_lon = m.toLatLon(bytes(self.MGRS_LOC,"utf-8"))
 		self.LAT = lat_lon[0]
 		self.LON = lat_lon[1]

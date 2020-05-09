@@ -7,8 +7,7 @@ import json
 import time
 from wflms_libs import *
 
-# Create MGRS object
-m = mgrs.MGRS()
+
 
 # Create fake packet object
 currentStatus = Packet()
