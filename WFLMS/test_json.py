@@ -61,17 +61,14 @@ while True:
         display.text('- PKT received -', 15, 20, 1)
         display.show()
 
-        decoded_pkt.RX_TIME = time.time()   # Unix timestamp for packet received
+        decoded_pkt.RX_TIME = time.localtime()   # Unix timestamp for packet received
         decoded_pkt.calc_lat_lon()  # Calculate Long, Lat coordinates from MGRS coordinates
         decoded_pkt.decode_source_unit_id() # Establish unit id numerically
 
-        # Check if unit id is same as any others in the dict
-        print('It is here!')
-        # go through each element in the "data" dict. start at element 0
+        # go through each element in the "data" dict. start at element 0.
         for i in range(len(data['active_crews'])):
-            print('It is in the FOR loupe')
+            # If the unit number matches the received packet
             if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
-                print('It is in four loops iffffer')
                 #update entry for that unit.
                 data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
                 data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
@@ -80,9 +77,9 @@ while True:
                 data['active_crews'][i]['lon'] == decoded_pkt.LON
                 data['active_crews'][i]['rx_time'] == decoded_pkt.RX_TIME
 
+        # If there are no received packets
         if (len(data['active_crews']) == 0):
-            # Make a new entry, as the unit hasn't been seen before
-            print('it do be in the if sometimes')
+            # Make a new entry with the data just received, as the unit hasn't been seen before
             data['active_crews'].append({
             'unit_number': decoded_pkt.DICT_NUM,
             'emerg_flg': decoded_pkt.EMERG_FLG,
