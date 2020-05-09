@@ -46,40 +46,40 @@ data['active_crews'] = []
 
 while True:
     # Keep listening for and processing packets
-	packet = rfm9x.receive(keep_listening=True,with_header=False,with_ack=True,timeout=None)
-	if packet is None:
+    packet = rfm9x.receive(keep_listening=True,with_header=False,with_ack=True,timeout=None)
+    if packet is None:
         # Timing for
-		if (time.time() - packet_timer > 1):
-			display.fill(0)
-			display.text('- Waiting for PKT -', 15, 20, 1)
-			display.show()
-	else:
-		encoded_byteliteral = BitArray(packet)
-		decoded_pkt = decode_lora_packet(encoded_byteliteral)
-		packet_timer = time.time()
-		display.fill(0)
-		display.text('- PKT received -', 15, 20, 1)
-		display.show()
+        if (time.time() - packet_timer > 1):
+            display.fill(0)
+            display.text('- Waiting for PKT -', 15, 20, 1)
+            display.show()
+        else:
+            encoded_byteliteral = BitArray(packet)
+            decoded_pkt = decode_lora_packet(encoded_byteliteral)
+            packet_timer = time.time()
+            display.fill(0)
+            display.text('- PKT received -', 15, 20, 1)
+            display.show()
 
-        decoded_pkt.RX_TIME = time.time()   # Unix timestamp for packet received
-        decoded_pkt.calc_lat_lon()          # Calculate Long, Lat coordinates from MGRS coordinates
-        decoded_pkt.decode_source_unit_id() # Establish unit id numerically
+            decoded_pkt.RX_TIME = time.time()   # Unix timestamp for packet received
+            decoded_pkt.calc_lat_lon()  # Calculate Long, Lat coordinates from MGRS coordinates
+            decoded_pkt.decode_source_unit_id() # Establish unit id numerically
 
-        # Check if unit id is same as any others in the dict
-        try:
-            for i in data['active_crews'][i]:
-                if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
-                    #update entry for that unit.
-                    data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
-                    data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
-                    data['active_crews'][i]['rsrc_stat'] == decoded_pkt.RSRC_STAT
-                    data['active_crews'][i]['lat'] == decoded_pkt.LAT
-                    data['active_crews'][i]['lon'] == decoded_pkt.LON
-                    data['active_crews'][i]['rx_time'] == decoded_pkt.RX_TIME
+            # Check if unit id is same as any others in the dict
+            try:
+                for i in data['active_crews'][i]:
+                    if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
+                        #update entry for that unit.
+                        data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
+                        data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
+                        data['active_crews'][i]['rsrc_stat'] == decoded_pkt.RSRC_STAT
+                        data['active_crews'][i]['lat'] == decoded_pkt.LAT
+                        data['active_crews'][i]['lon'] == decoded_pkt.LON
+                        data['active_crews'][i]['rx_time'] == decoded_pkt.RX_TIME
 
-                else:
-                    # Else, make a new entry, as the unit hasn't been seen before
-                    data['active_crews'].append({
+                    else:
+                        # Else, make a new entry, as the unit hasn't been seen before
+                        data['active_crews'].append({
                         'unit_number': decoded_pkt.DICT_NUM,
                         'emerg_flg': decoded_pkt.EMERG_FLG,
                         'fline_stat': decoded_pkt.FLINE_STAT,
@@ -87,26 +87,26 @@ while True:
                         'lat': decoded_pkt.LAT,
                         'lon': decoded_pkt.LON,
                         'rx_time': decoded_pkt.RX_TIME,
-                    })
+                        })
 
-        except IndexError:
-            # List is empty on first entry
-            # Append an entry
-            data['active_crews'].append({
-                'unit_number': decoded_pkt.DICT_NUM,
-                'emerg_flg': decoded_pkt.EMERG_FLG,
-                'fline_stat': decoded_pkt.FLINE_STAT,
-                'rsrc_stat': decoded_pkt.RSRC_STAT,
-                'lat': decoded_pkt.LAT,
-                'lon': decoded_pkt.LON,
-                'rx_time': decoded_pkt.RX_TIME,
-            })
+                    except IndexError:
+                        # List is empty on first entry
+                        # Append an entry
+                        data['active_crews'].append({
+                        'unit_number': decoded_pkt.DICT_NUM,
+                        'emerg_flg': decoded_pkt.EMERG_FLG,
+                        'fline_stat': decoded_pkt.FLINE_STAT,
+                        'rsrc_stat': decoded_pkt.RSRC_STAT,
+                        'lat': decoded_pkt.LAT,
+                        'lon': decoded_pkt.LON,
+                        'rx_time': decoded_pkt.RX_TIME,
+                        })
 
 
-        # Send the revised dictionary out as a text file
-        #with open('data.txt', 'w') as outfile:
-            #json.dump(data, outfile)
+                        # Send the revised dictionary out as a text file
+                        #with open('data.txt', 'w') as outfile:
+                        #json.dump(data, outfile)
 
-		print("\nReceived Packet:\n")
-		#decoded_pkt.dump_to_console()
-        print(json.dumps(data['active_crews'], index=2))
+                        print("\nReceived Packet:\n")
+                        #decoded_pkt.dump_to_console()
+                        print(json.dumps(data['active_crews'], index=2))
