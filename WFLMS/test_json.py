@@ -67,7 +67,7 @@ while True:
 
         # Check if unit id is same as any others in the dict
         try:
-            for i in data['active_crews'][i]:
+            for i in len(data['active_crews']):
                 if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
                     #update entry for that unit.
                     data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
