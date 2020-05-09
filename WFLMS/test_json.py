@@ -13,6 +13,7 @@ import adafruit_rfm9x		# Import RFM9x
 import time
 import mgrs
 import json
+import os
 
 # Create the I2C interface.
 i2c = busio.I2C(board.SCL, board.SDA)
@@ -108,4 +109,5 @@ while True:
 
             print("\nReceived Packet:\n")
             #decoded_pkt.dump_to_console()
+            _=os.system('clear')
             print(json.dumps(data['active_crews'], index=2))
