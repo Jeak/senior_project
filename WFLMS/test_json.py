@@ -100,12 +100,17 @@ while True:
             'lon': decoded_pkt.LON,
             'rx_time': decoded_pkt.RX_TIME,
             })
+        # Check for duplicates
+        data_without_dupes = []
+        for i in range(len(data['active_crews'])):
+            if data['active_crews'][i] not in data['active_crews'][i + 1:]:
+                data_without_dupes.append(data['active_crews'][i])
 
         # Send the revised dictionary out as a text file
         with open('data.txt', 'w') as outfile:
-            json.dump(data, outfile)
+            json.dump(data_without_dupes, outfile)
 
-        print("\nReceived Packet:\n")
-        decoded_pkt.dump_to_console()
+        #print("\nReceived Packet:\n")
+        #decoded_pkt.dump_to_console()
         #print(data['active_crews'])
-        print(json.dumps(data, indent=2))
+        print(json.dumps(data_without_dupes, indent=2))
