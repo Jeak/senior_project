@@ -67,7 +67,8 @@ while True:
 
         # Check if unit id is same as any others in the dict
         try:
-            for i in len(data['active_crews']):
+            # go through each element in the "data" dict. start at element 0
+            for i in range(len(data['active_crews'])):
                 if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
                     #update entry for that unit.
                     data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
@@ -91,7 +92,7 @@ while True:
 
         except IndexError:
             # List is empty on first entry
-            # Append an entry
+            # Append the entry
             data['active_crews'].append({
             'unit_number': decoded_pkt.DICT_NUM,
             'emerg_flg': decoded_pkt.EMERG_FLG,
