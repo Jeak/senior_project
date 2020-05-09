@@ -67,11 +67,12 @@ while True:
 
         # Check if unit id is same as any others in the dict
         try:
+            print('It is trying!')
             # go through each element in the "data" dict. start at element 0
             for i in range(len(data['active_crews'])):
                 if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
+                    print('It is in the iffer')
                     #update entry for that unit.
-                    print('In if statement')
                     data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
                     data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
                     data['active_crews'][i]['rsrc_stat'] == decoded_pkt.RSRC_STAT
@@ -81,7 +82,7 @@ while True:
 
                 else:
                     # Else, make a new entry, as the unit hasn't been seen before
-                    print('In else statement')
+                    print('it do be in the else sometimes')
                     data['active_crews'].append({
                     'unit_number': decoded_pkt.DICT_NUM,
                     'emerg_flg': decoded_pkt.EMERG_FLG,
@@ -95,6 +96,7 @@ while True:
         except IndexError:
             # List is empty on first entry
             # Append the entry
+            print('error')
             data['active_crews'].append({
             'unit_number': decoded_pkt.DICT_NUM,
             'emerg_flg': decoded_pkt.EMERG_FLG,
@@ -111,4 +113,5 @@ while True:
 
         print("\nReceived Packet:\n")
         decoded_pkt.dump_to_console()
-        print(json.dumps(data['active_crews'], indent=2))
+        print(data['active_crews'])
+        #print(json.dumps(data['active_crews'], indent=2))
