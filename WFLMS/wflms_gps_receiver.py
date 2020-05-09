@@ -51,8 +51,7 @@ while True:
 			last_pkt_rx = time.time()
 			display.fill(0)
 			display.text('- PKT received -', 15, 20, 1)
-			display.show()
-
+			display.show()		
 		except UnicodeDecodeError:
 			print("\nUnicode Decode Error!\n")
 		else:

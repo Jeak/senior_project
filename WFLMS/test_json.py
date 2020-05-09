@@ -18,21 +18,26 @@ currentStatus.SRC_NUM = 2   # hardcode for Pi 0
 currentStatus.EMERG_FLG = 1
 currentStatus.FLINE_STAT = 0
 currentStatus.RSRC_STAT = 1
-currentStatus.MGRS_LOC = bytes('10SEG6374048456','utf-8')
+currentStatus.MGRS_LOC = '10SEG6374048456'
 currentStatus.DEST_TYPE = 10
 currentStatus.DEST_NUM = 1
 currentStatus.RX_TIME = time.ctime()
 # Established and calculated upon receive
-# Convert MGRS to lat and lon
-try:
-    lat_lon = m.toLatLon(currentStatus.MGRS_LOC)
-except mgrs.core.RTreeError:
-    print('RTree Error')
 
-print(lat_lon)
-print(type(lat_lon))
-currentStatus.LAT = lat_lon[0]
-currentStatus.LON = lat_lon[1]
+currentStatus.calc_lat_lon()
+currentStatus.decode_source_unit_id()
+
+test_dict = {
+    "unit_number": currentStatus.DICT_NUM, # Unit Number
+    "emerg_flg": currentStatus.EMERG_FLG, # Emergency flag
+    "fline_stat": currentStatus.FLINE_STAT, # Fireline Status
+    "rsrc_stat": currentStatus.RSRC_STAT, # Resource status"
+    "lat": currentStatus.LAT,
+    "lon": currentStatus.LON,
+    "rx_time": currentStatus.RX_TIME,
+}
 
 print('Dump to console:')
 currentStatus.dump_to_console()
+print('\nOutput of dictionary:\n')
+print(test_dict)

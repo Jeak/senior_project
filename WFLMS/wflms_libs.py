@@ -90,6 +90,7 @@ class Packet:
 		self.RX_TIME = 0 # RX Time encoded as ctime (for now)
 		self.LAT = 0
 		self.LON = 0
+		self.DICT_NUM = 0 #  unit id from src num and src type
 
 		# By default, packets target ATGS (repeater station)
 
@@ -108,3 +109,12 @@ class Packet:
 			print('LAT:	' + str(self.LAT))
 		if self.LON != 0:
 			print('LON:	' + str(self.LON))
+
+	def calc_lat_lon(self):
+		lat_lon = m.toLatLon(bytes(self.MGRS_LOC,"utf-8"))
+		self.LAT = lat_lon[0]
+		self.LON = lat_lon[1]
+
+	def decode_source_unit_id(self):
+	    dict_num = (100*(int(self.SRC_TYPE))+(int(self.SRC_NUM)))
+	    self.DICT_NUM = dict_num
