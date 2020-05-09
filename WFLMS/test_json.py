@@ -93,6 +93,8 @@ while True:
         except IndexError:
             # List is empty on first entry
             # Append the entry
+
+            print('In except statement')
             data['active_crews'].append({
             'unit_number': decoded_pkt.DICT_NUM,
             'emerg_flg': decoded_pkt.EMERG_FLG,
