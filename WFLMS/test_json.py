@@ -61,7 +61,7 @@ while True:
         display.text('- PKT received -', 15, 20, 1)
         display.show()
 
-        decoded_pkt.RX_TIME = time.localtime()   # Unix timestamp for packet received
+        decoded_pkt.RX_TIME = time.time()   # Unix timestamp for packet received
         decoded_pkt.calc_lat_lon()  # Calculate Long, Lat coordinates from MGRS coordinates
         decoded_pkt.decode_source_unit_id() # Establish unit id numerically
 
@@ -70,12 +70,23 @@ while True:
             # If the unit number matches the received packet
             if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
                 #update entry for that unit.
-                data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
-                data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
-                data['active_crews'][i]['rsrc_stat'] == decoded_pkt.RSRC_STAT
-                data['active_crews'][i]['lat'] == decoded_pkt.LAT
-                data['active_crews'][i]['lon'] == decoded_pkt.LON
-                data['active_crews'][i]['rx_time'] == decoded_pkt.RX_TIME
+                data['active_crews'][i]['emerg_flg'] = decoded_pkt.EMERG_FLG
+                data['active_crews'][i]['fline_stat'] = decoded_pkt.FLINE_STAT
+                data['active_crews'][i]['rsrc_stat'] = decoded_pkt.RSRC_STAT
+                data['active_crews'][i]['lat'] = decoded_pkt.LAT
+                data['active_crews'][i]['lon'] = decoded_pkt.LON
+                data['active_crews'][i]['rx_time'] = decoded_pkt.RX_TIME
+            else:
+                # Make a new entry with the data just received, as the unit hasn't been seen before
+                data['active_crews'].append({
+                'unit_number': decoded_pkt.DICT_NUM,
+                'emerg_flg': decoded_pkt.EMERG_FLG,
+                'fline_stat': decoded_pkt.FLINE_STAT,
+                'rsrc_stat': decoded_pkt.RSRC_STAT,
+                'lat': decoded_pkt.LAT,
+                'lon': decoded_pkt.LON,
+                'rx_time': decoded_pkt.RX_TIME,
+                })
 
         # If there are no received packets
         if (len(data['active_crews']) == 0):
