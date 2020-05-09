@@ -110,8 +110,6 @@ while True:
         with open('data.txt', 'w') as outfile:
             json.dump(data_without_dupes, outfile)
 
-        #print("\nReceived Packet:\n")
-        #decoded_pkt.dump_to_console()
-        #print(data['active_crews'])
-        sys.stderr.write("\x1b[2J\x1b[H")
+        #sys.stderr.write("\x1b[2J\x1b[H")
+        print('----------------------------------------------------------------------------------')
         print(json.dumps(data_without_dupes, indent=2))
