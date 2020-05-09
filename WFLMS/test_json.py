@@ -69,8 +69,9 @@ while True:
         print('It is here!')
         # go through each element in the "data" dict. start at element 0
         for i in range(len(data['active_crews'])):
+            print('It is in the FOR loupe')
             if data['active_crews'][i]['unit_number'] == decoded_pkt.DICT_NUM:
-                print('It is in the iffer')
+                print('It is in four loops iffffer')
                 #update entry for that unit.
                 data['active_crews'][i]['emerg_flg'] == decoded_pkt.EMERG_FLG
                 data['active_crews'][i]['fline_stat'] == decoded_pkt.FLINE_STAT
@@ -79,18 +80,18 @@ while True:
                 data['active_crews'][i]['lon'] == decoded_pkt.LON
                 data['active_crews'][i]['rx_time'] == decoded_pkt.RX_TIME
 
-            else:
-                # Else, make a new entry, as the unit hasn't been seen before
-                print('it do be in the else sometimes')
-                data['active_crews'].append({
-                'unit_number': decoded_pkt.DICT_NUM,
-                'emerg_flg': decoded_pkt.EMERG_FLG,
-                'fline_stat': decoded_pkt.FLINE_STAT,
-                'rsrc_stat': decoded_pkt.RSRC_STAT,
-                'lat': decoded_pkt.LAT,
-                'lon': decoded_pkt.LON,
-                'rx_time': decoded_pkt.RX_TIME,
-                })
+        if (len(data['active_crews']) == 0):
+            # Make a new entry, as the unit hasn't been seen before
+            print('it do be in the if sometimes')
+            data['active_crews'].append({
+            'unit_number': decoded_pkt.DICT_NUM,
+            'emerg_flg': decoded_pkt.EMERG_FLG,
+            'fline_stat': decoded_pkt.FLINE_STAT,
+            'rsrc_stat': decoded_pkt.RSRC_STAT,
+            'lat': decoded_pkt.LAT,
+            'lon': decoded_pkt.LON,
+            'rx_time': decoded_pkt.RX_TIME,
+            })
 
         # Send the revised dictionary out as a text file
         #with open('data.txt', 'w') as outfile:
