@@ -109,4 +109,4 @@ while True:
 
         print("\nReceived Packet:\n")
         decoded_pkt.dump_to_console()
-        print(json.dumps(data['active_crews'], index=2))
+        print(json.dumps(data['active_crews'], indent=2))
