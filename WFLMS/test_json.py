@@ -89,24 +89,23 @@ while True:
                         'rx_time': decoded_pkt.RX_TIME,
                         })
 
-                    except IndexError:
-                        # List is empty on first entry
-                        # Append an entry
-                        data['active_crews'].append({
-                        'unit_number': decoded_pkt.DICT_NUM,
-                        'emerg_flg': decoded_pkt.EMERG_FLG,
-                        'fline_stat': decoded_pkt.FLINE_STAT,
-                        'rsrc_stat': decoded_pkt.RSRC_STAT,
-                        'lat': decoded_pkt.LAT,
-                        'lon': decoded_pkt.LON,
-                        'rx_time': decoded_pkt.RX_TIME,
-                        })
+            except IndexError:
+                # List is empty on first entry
+                # Append an entry
+                data['active_crews'].append({
+                'unit_number': decoded_pkt.DICT_NUM,
+                'emerg_flg': decoded_pkt.EMERG_FLG,
+                'fline_stat': decoded_pkt.FLINE_STAT,
+                'rsrc_stat': decoded_pkt.RSRC_STAT,
+                'lat': decoded_pkt.LAT,
+                'lon': decoded_pkt.LON,
+                'rx_time': decoded_pkt.RX_TIME,
+                })
 
+            # Send the revised dictionary out as a text file
+            #with open('data.txt', 'w') as outfile:
+            #json.dump(data, outfile)
 
-                        # Send the revised dictionary out as a text file
-                        #with open('data.txt', 'w') as outfile:
-                        #json.dump(data, outfile)
-
-                        print("\nReceived Packet:\n")
-                        #decoded_pkt.dump_to_console()
-                        print(json.dumps(data['active_crews'], index=2))
+            print("\nReceived Packet:\n")
+            #decoded_pkt.dump_to_console()
+            print(json.dumps(data['active_crews'], index=2))
