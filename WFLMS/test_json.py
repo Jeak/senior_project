@@ -110,6 +110,6 @@ while True:
         with open('data.txt', 'w') as outfile:
             json.dump(data_without_dupes, outfile)
 
-        #sys.stderr.write("\x1b[2J\x1b[H")
+        #sys.stderr.write("\x1b[2J\x1b[H")  # clear text line
         print('----------------------------------------------------------------------------------')
         print(json.dumps(data_without_dupes, indent=2))
