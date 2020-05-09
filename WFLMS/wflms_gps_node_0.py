@@ -274,23 +274,23 @@ currentStatus.MGRS_LOC = get_MGRS()
 currentStatus.DEST_TYPE = 10
 currentStatus.DEST_NUM = 1
 
-last_pkt_tx = 0
+packet_timer = 0
 
 while True:
-	while (time.time() - last_pkt_tx <= 1):
+	while (time.time() - packet_timer <= 1):
 			if ((not btnA.value) or (not btnB.value)):
 				currentStatus = main_menu(currentStatus)
 
 	main_display(currentStatus)
 	if ((not btnA.value) or (not btnB.value)):
 		currentStatus = main_menu(currentStatus)
-	if (time.time() - last_pkt_tx > 10):
+	if (time.time() - packet_timer > 10):
 		print("\nPacket before Encoding\n")
 		currentStatus.dump_to_console()
 
 		encoded_byteliteral = encode_lora_packet(currentStatus)
 		rfm9x.send_with_ack(encoded_byteliteral.bytes)
-		last_pkt_tx = time.time()
+		packet_timer = time.time()
 		display.fill(0)
 		display.text('- Sent PKT -', 15, 20, 1)
 		display.show()

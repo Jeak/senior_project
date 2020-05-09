@@ -35,12 +35,12 @@ rfm9x.tx_power = 23
 rfm9x.node = 0x03
 rfm9x.destination = 0x04
 prev_packet = None
-last_pkt_rx = 0
+packet_timer = 0
 
 while True:
 	packet = rfm9x.receive(keep_listening=True,with_header=False,with_ack=True,timeout=None)
 	if packet is None:
-		if (time.time() - last_pkt_rx > 1):
+		if (time.time() - packet_timer > 1):
 			display.fill(0)
 			display.text('- Waiting for PKT -', 15, 20, 1)
 			display.show()
@@ -48,10 +48,10 @@ while True:
 		try:
 			encoded_byteliteral = BitArray(packet)
 			decoded_pkt = decode_lora_packet(encoded_byteliteral)
-			last_pkt_rx = time.time()
+			packet_timer = time.time()
 			display.fill(0)
 			display.text('- PKT received -', 15, 20, 1)
-			display.show()		
+			display.show()
 		except UnicodeDecodeError:
 			print("\nUnicode Decode Error!\n")
 		else:
