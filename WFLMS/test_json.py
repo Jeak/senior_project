@@ -102,10 +102,10 @@ while True:
             })
 
         # Send the revised dictionary out as a text file
-        #with open('data.txt', 'w') as outfile:
-        #json.dump(data, outfile)
+        with open('data.txt', 'w') as outfile:
+        json.dump(data, outfile)
 
         print("\nReceived Packet:\n")
         decoded_pkt.dump_to_console()
-        print(data['active_crews'])
-        #print(json.dumps(data['active_crews'], indent=2))
+        #print(data['active_crews'])
+        print(json.dumps(data, indent=2))
