@@ -107,7 +107,7 @@ while True:
                 data_without_dupes.append(data['active_crews'][i])
 
         # Send the revised dictionary out as a text file
-        with open('data.txt', 'w') as outfile:
+        with open('data.json', 'w') as outfile:
             json.dump(data_without_dupes, outfile)
 
         #sys.stderr.write("\x1b[2J\x1b[H")  # clear text line
