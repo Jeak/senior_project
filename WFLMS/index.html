@@ -5,40 +5,43 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-       /* Set the size of the div element that contains the map */
-      #map {
-        height: 600px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-    </style>
-  </head>
-  <body>
-    <h3>WFLMS Tracking System</h3>
+
+<head>
+  <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 600px;
+      /* The height is 400 pixels */
+      width: 100%;
+      /* The width is the width of the web page */
+    }
+  </style>
+</head>
+
+<body>
+  <h3>WFLMS Tracking System</h3>
 
 
-    <!--The div element for the map -->
-    <div id="map"></div>
+  <!--The div element for the map -->
+  <div id="map"></div>
 
-    <!-- jquery-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+  <!-- jquery-->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3uvG8Jpki3K7Z1QORHjeP7srsOg1Egj8&callback=initMap">
+  </script>
+  <!--<script data-main="scripts/map" src="scripts/require.js"></script> -->
+  <script src="map.js"></script>
+  <!-- <script type="text/javascript" src="data.json"></script> -->
 
-    <!--<script data-main="scripts/map" src="scripts/require.js"></script> -->
-    <script src="./scripts/map.js"></script>
-<!-- <script type="text/javascript" src="data.json"></script> -->
-
-    <!--Load the API from the specified URL
+  <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
     * The key parameter will contain your own API key (which is not needed for this tutorial)
     * The callback parameter executes the initMap() function
     -->
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3uvG8Jpki3K7Z1QORHjeP7srsOg1Egj8&callback=initMap">
-    </script>
 
-  </body>
 
-<table id="unit_statuses">
-</table>
+</body>
+
+
+
 </html>
