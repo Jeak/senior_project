@@ -35,11 +35,12 @@ function initMap() {
       // else, there are already markers present
       else {
         // delete markers
-        // for (var i = 0; i < markers.length; i++) {
-        //   //marker_list[i].setMap(null);
-        //   marker_list[i] = null;
-        // }
-        marker_list = [];
+         for (var i = 0; i < markers.length; i++) {
+          marker_list[i].setMap(null);
+        
+        }
+        marker_list.length = 0;
+
         for (var i = 0; i < position_list.length; i++) {
           temp_pos = {lat:position_list[i].lat, lng:position_list[i].lon};
           temp_id = position_list[i].unit_number.toString();
@@ -61,18 +62,21 @@ function initMap() {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-  //while (1) {
-  //updateEverything();
-  setTimeout(updateEverything, 2500, positions, markers);
-  setTimeout(updateEverything, 2500, positions, markers);
-  setTimeout(updateEverything, 2500, positions, markers);
+	//setTimeout(updateEverything, 15000, positions, markers);  
+	//while (1) {
+  	//setTimeout(updateEverything, 5000, positions, markers);
+	//updateEverything();
+	//}
+  
+ 
+ setInterval(updateEverything, 2500, positions, markers);
 
 
 
-  setTimeout(updateEverything, 2500, positions, markers);
-  setTimeout(updateEverything, 2500, positions, markers);
-  setTimeout(updateEverything, 2500, positions, markers);
-  //}
+  //setTimeout(updateEverything, 2500, positions, markers);
+  //setTimeout(updateEverything, 2500, positions, markers);
+  //setTimeout(updateEverything, 2500, positions, markers);
+  
 
 ////////////////////////////////////////////////////////////////////////////////
 }
