@@ -5,8 +5,9 @@
 //var positions = [{"unit_number": 177, "emerg_flg": 0, "fline_stat": 0, "rsrc_stat": 1, "lat": 37.48091470331358, "lon": -122.27905543215411, "rx_time": 1589007919.4916418}, {"unit_number": 522, "emerg_flg": 0, "fline_stat": 0, "rsrc_stat": 1, "lat": 37.48081590557667, "lon": -122.2791129332237, "rx_time": 1589007956.9049203}, {"unit_number": 624, "emerg_flg": 1, "fline_stat": 1, "rsrc_stat": 1, "lat": 37.48086991445299, "lon": -122.27910110396783, "rx_time": 1589007990.4738903}, {"unit_number": 2, "emerg_flg": 1, "fline_stat": 0, "rsrc_stat": 1, "lat": 37.48099616518833, "lon": -122.27911120138216, "rx_time": 1589008024.2166429}];
 
 
-      var positions = {};
-      var markers = [];
+var positions = {};
+var markers = [];
+
 // Initialize and add the map
 // Called upon web page load
 function initMap() {
@@ -17,7 +18,7 @@ function initMap() {
     // center map at incident position
     document.getElementById('map'), {zoom: 18, center: incident_pos});
 
-    // function for update positions on map given list
+    // function declaration for update positions on map given list
     function updateMap(position_list,marker_list) {
       if (marker_list.length == 0) {
         // upon first updating of positions
@@ -33,86 +34,100 @@ function initMap() {
       }
       // else, there are already markers present
       else {
-        // // delete markers
+        // delete markers
         // for (var i = 0; i < markers.length; i++) {
         //   //marker_list[i].setMap(null);
-        //   marker_list[i]=null;
+        //   marker_list[i] = null;
         // }
-        // marker_list = [];
+        marker_list = [];
+        for (var i = 0; i < position_list.length; i++) {
+          temp_pos = {lat:position_list[i].lat, lng:position_list[i].lon};
+          temp_id = position_list[i].unit_number.toString();
+           var marker = new google.maps.Marker({position: temp_pos,
+              map: map,
+              label: decodeUnitNumber(temp_id)});
+           // add markers to array
+           let newLength = marker_list.push(marker);
+         }
       }
-        return;
+      return;
     }
 
-
-
-      // initial gathering of positions
+    function updateEverything() {
       positions = getJsonDataFromServer('data.json');
-      //console.log(markers);
       updateMap(positions,markers);
+      return;
+      }
 
+
+////////////////////////////////////////////////////////////////////////////////
+  //while (1) {
+  //updateEverything();
+  setTimeout(updateEverything, 2500, positions, markers);
+  setTimeout(updateEverything, 2500, positions, markers);
+  setTimeout(updateEverything, 2500, positions, markers);
+
+
+
+  setTimeout(updateEverything, 2500, positions, markers);
+  setTimeout(updateEverything, 2500, positions, markers);
+  setTimeout(updateEverything, 2500, positions, markers);
+  //}
+
+////////////////////////////////////////////////////////////////////////////////
+}
+      //console.log(markers);
       //console.log(positions);
       //console.log(typeof(positions));
       //console.log('Markers after updating:' + markers);
       //console.log(decodeUnitNumber(65));
       // end of embedded map functions
+
+
+// Function for decoding string from unit number
+function decodeUnitNumber(unit_num) {
+  if (unit_num < 100) {
+    return ('H' + (unit_num).toString());
+  } else if (unit_num >= 100 & unit_num < 200) {
+    return ('EC' + (unit_num-100).toString());
+  } else if (unit_num >= 200 & unit_num < 300) {
+    return ('ST' + (unit_num-200).toString());
+  } else if (unit_num >= 300 & unit_num < 400) {
+    return ('D' + (unit_num-300).toString());
+  } else if (unit_num >= 400 & unit_num < 500) {
+    return ('WT' + (unit_num-400).toString());
+  } else if (unit_num >= 500 & unit_num < 600) {
+    return ('MT' + (unit_num-500).toString());
+  } else if (unit_num >= 600 & unit_num < 700) {
+    return ('SEAT' + (unit_num-600).toString());
+  } else if (unit_num >= 700 & unit_num < 800) {
+    return ('VLAT' + (unit_num-700).toString());
+  } else if (unit_num >= 800 & unit_num < 900) {
+    return ('HELI' + (unit_num-800).toString());
+  } else if (unit_num >= 900 & unit_num < 1000) {
+    return ('ATGS' + (unit_num-900).toString());
+  } else if (unit_num >= 1000 & unit_num < 1100) {
+      return ('IC' + (unit_num-1000).toString());
+  } else {
+    console.log('err:Unit number out of range');
+  }
+  return;
 }
 
-  // Function for decoding string from unit number
-  function decodeUnitNumber(unit_num) {
-    if (unit_num < 100) {
-      return ('H' + (unit_num).toString());
-    } else if (unit_num >= 100 & unit_num < 200) {
-      return ('EC' + (unit_num-100).toString());
-    } else if (unit_num >= 200 & unit_num < 300) {
-      return ('ST' + (unit_num-200).toString());
-    } else if (unit_num >= 300 & unit_num < 400) {
-      return ('D' + (unit_num-300).toString());
-    } else if (unit_num >= 400 & unit_num < 500) {
-      return ('WT' + (unit_num-400).toString());
-    } else if (unit_num >= 500 & unit_num < 600) {
-      return ('MT' + (unit_num-500).toString());
-    //   console.log('MT');
-    //   console.log(unit_num - 500);
-    } else if (unit_num >= 600 & unit_num < 700) {
-      return ('SEAT' + (unit_num-600).toString());
-    //   console.log('SEAT');
-    //   console.log(unit_num - 600);
-    } else if (unit_num >= 700 & unit_num < 800) {
-      return ('VLAT' + (unit_num-700).toString());
-    //   console.log('VLAT');
-    //   console.log(unit_num - 700);
-    } else if (unit_num >= 800 & unit_num < 900) {
-      return ('HELI' + (unit_num-800).toString());
-    //   console.log('HELI');
-    //   console.log(unit_num - 800);
-    } else if (unit_num >= 900 & unit_num < 1000) {
-      return ('ATGS' + (unit_num-900).toString());
-    //   console.log('ATGS');
-    //   console.log(unit_num - 900);
-    } else if (unit_num >= 1000 & unit_num < 1100) {
-        return ('IC' + (unit_num-1000).toString());
-    //   console.log('IC');
-    //   console.log(unit_num - 1000);
-    } else {
-      console.log('err:Unit number out of range');
-    }
-    return;
-  }
 
 
-
-  function getJsonDataFromServer(url) {
-    // get data from server synchronously
-    var request = new XMLHttpRequest();
+function getJsonDataFromServer(url) {
+  // get data from server synchronously
+  var request = new XMLHttpRequest();
   request.open('GET', url, false);  // `false` makes the request synchronous
   request.send(null);
 
   if (request.status === 200) {
-    //console.log(request.responseText);
+    console.log(JSON.parse(request.responseText));
     // return parse json data
     return (JSON.parse(request.responseText));
   }
-  }
+}
 
 
 // not used stuf down here

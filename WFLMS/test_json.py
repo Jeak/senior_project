@@ -44,6 +44,9 @@ packet_timer = 0
 data = {}
 # Create the active_crews dictionary
 data['active_crews'] = []
+# Create the empty json File
+with open('data.json', 'w') as outfile:
+    outfile.truncate(0)
 
 while True:
     # Keep listening for and processing packets

@@ -25,13 +25,10 @@
   <!--The div element for the map -->
   <div id="map"></div>
 
-  <!-- jquery-->
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
   <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3uvG8Jpki3K7Z1QORHjeP7srsOg1Egj8&callback=initMap">
   </script>
-  <!--<script data-main="scripts/map" src="scripts/require.js"></script> -->
-  <script src="map.js"></script>
-  <!-- <script type="text/javascript" src="data.json"></script> -->
+  <script src="map.js?t=<?= time(); ?>"></script>
+  <!-- <script type="text/javascript" src="data.json?t=<?= time(); ?>"></script> -->
 
   <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
@@ -39,9 +36,5 @@
     * The callback parameter executes the initMap() function
     -->
 
-
 </body>
-
-
-
 </html>
