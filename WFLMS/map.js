@@ -13,6 +13,8 @@ var markers = [];
 function initMap() {
   // The location of the incident
   var incident_pos = {lat:37.481058, lng:-122.279109};
+
+  //var status_table = document.getElementById('status_table');
   // The map
   var map = new google.maps.Map(
     // center map at incident position
@@ -37,7 +39,7 @@ function initMap() {
         // delete markers
          for (var i = 0; i < markers.length; i++) {
           marker_list[i].setMap(null);
-        
+
         }
         marker_list.length = 0;
 
@@ -57,26 +59,27 @@ function initMap() {
     function updateEverything() {
       positions = getJsonDataFromServer('data.json');
       updateMap(positions,markers);
+      updateTable(positions,status_table);
       return;
       }
 
 
+
 ////////////////////////////////////////////////////////////////////////////////
-	//setTimeout(updateEverything, 15000, positions, markers);  
+	//setTimeout(updateEverything, 15000, positions, markers);
 	//while (1) {
   	//setTimeout(updateEverything, 5000, positions, markers);
 	//updateEverything();
 	//}
-  
- 
- setInterval(updateEverything, 2500, positions, markers);
 
 
+ setInterval(updateEverything, 3000, positions, markers);
+//updateEverything(positions,markers);
 
   //setTimeout(updateEverything, 2500, positions, markers);
   //setTimeout(updateEverything, 2500, positions, markers);
   //setTimeout(updateEverything, 2500, positions, markers);
-  
+
 
 ////////////////////////////////////////////////////////////////////////////////
 }
@@ -86,6 +89,151 @@ function initMap() {
       //console.log('Markers after updating:' + markers);
       //console.log(decodeUnitNumber(65));
       // end of embedded map functions
+      function updateTable(position_list,status_table_object) {
+        // Update the table with unit statuses
+
+        //
+         //clear the updateTable
+         status_table_object.innerHTML = "";
+         // create the headings
+         status_table_object.innerHTML = "<tr><th>Unit Type</th><th>Unit Number</th><th>Resource Status</th><th>Fireline Status</th><th>Emergency Staus</th><th>Last RX Time (Local)</th></tr>";
+        // Check if position_list is empty
+        // If so, don't do anything
+        if (position_list.length == 0) {
+          return;
+        }
+        else {
+          // For each unit in the list
+          for (var i = 0; i < position_list.length; i++) {
+            // create a new row for each unit
+            var row = document.createElement("tr");
+            // based on the fields in the json, go through each
+            for (var j = 0; j < 6; j++) {
+              // Create a <td> element and a text node, make the text
+              // node the contents of the <td>, and put the <td> at
+              // the end of the table row
+              var cell = document.createElement("td");
+              switch (j) {
+                case 0:
+                // Column 0 is unit type
+                if (position_list[i].unit_number < 100) {
+                  var cellText = document.createTextNode('Handcrew');
+                } else if (position_list[i].unit_number >= 100 & position_list[i].unit_number < 200) {
+                  var cellText = document.createTextNode('Engine Crew');
+                } else if (position_list[i].unit_number >= 200 & position_list[i].unit_number < 300) {
+                  var cellText = document.createTextNode('Strike Team');
+                } else if (position_list[i].unit_number >= 300 & position_list[i].unit_number < 400) {
+                  var cellText = document.createTextNode('Dozer');
+                } else if (position_list[i].unit_number >= 400 & position_list[i].unit_number < 500) {
+                  var cellText = document.createTextNode('Water Tender');
+                } else if (position_list[i].unit_number >= 500 & position_list[i].unit_number < 600) {
+                 var cellText = document.createTextNode('Medical Team');
+                } else if (position_list[i].unit_number >= 600 & position_list[i].unit_number < 700) {
+                  var cellText = document.createTextNode('SEAT');
+                } else if (position_list[i].unit_number >= 700 & position_list[i].unit_number < 800) {
+                  var cellText = document.createTextNode('VLAT');
+                } else if (position_list[i].unit_number >= 800 & position_list[i].unit_number < 900) {
+                  var cellText = document.createTextNode('Helicopter');
+                } else if (position_list[i].unit_number >= 900 & position_list[i].unit_number < 1000) {
+                  var cellText = document.createTextNode('ATGS');
+                } else if (position_list[i].unit_number >= 1000 & position_list[i].unit_number < 1100) {
+                  var cellText = document.createTextNode('IC');
+                } else {
+                  var cellText = document.createTextNode('Unit number out of range');
+                }
+                break;
+                case 1:
+                    // Column 1 is unit number
+                   if (position_list[i].unit_number < 100) {
+                     var cellText = document.createTextNode((position_list[i].unit_number).toString());
+                   } else if (position_list[i].unit_number >= 100 & position_list[i].unit_number < 200) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-100).toString());
+                   } else if (position_list[i].unit_number >= 200 & position_list[i].unit_number < 300) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-200).toString());
+                   } else if (position_list[i].unit_number >= 300 & position_list[i].unit_number < 400) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-300).toString());
+                   } else if (position_list[i].unit_number >= 400 & position_list[i].unit_number < 500) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-400).toString());
+                   } else if (position_list[i].unit_number >= 500 & position_list[i].unit_number < 600) {
+                    var cellText = document.createTextNode((position_list[i].unit_number-500).toString());
+                   } else if (position_list[i].unit_number >= 600 & position_list[i].unit_number < 700) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-600).toString());
+                   } else if (position_list[i].unit_number >= 700 & position_list[i].unit_number < 800) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-700).toString());
+                   } else if (position_list[i].unit_number >= 800 & position_list[i].unit_number < 900) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-800).toString());
+                   } else if (position_list[i].unit_number >= 900 & position_list[i].unit_number < 1000) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-900).toString());
+                   } else if (position_list[i].unit_number >= 1000 & position_list[i].unit_number < 1100) {
+                     var cellText = document.createTextNode((position_list[i].unit_number-1000).toString());
+                   } else {
+                     var cellText = document.createTextNode('Unit number out of range');
+                   }
+                 break;
+
+                 case 2:
+                 // column 2: unit status
+                 switch (position_list[i].rsrc_stat) {
+                   case 0:
+                     var cellText = document.createTextNode('Active');
+                     break;
+                    case 1:
+                      var cellText = document.createTextNode('On break');
+                      break;
+                    case 2:
+                      var cellText = document.createTextNode('In transit');
+                      break;
+                    case 3:
+                      var cellText = document.createTextNode('Out of Service');
+                      break;
+
+                   default:
+                   var cellText = document.createTextNode('Error');
+
+                 }
+                 break;
+
+                 case 3:
+                   // column 3: Fireline status
+                   if (position_list[i].fline_stat == 1) {
+                     var cellText = document.createTextNode('Constructing');
+
+                   }
+                   else {
+                     var cellText = document.createTextNode('Not constructing');
+                   }
+                 break;
+                 case 4:
+                   // column 4: Emergency status
+                   if (position_list[i].emerg_flg == 1) {
+                     var cellText = document.createTextNode('EMERGENCY');
+                     cell.style.backgroundColor = "yellow";
+                     cell.style.color = "red";
+
+                   }
+                   else {
+                     var cellText = document.createTextNode(' ');
+                   }
+                 break;
+                 case 5:
+                   // column 5: RX Time
+                   var cellText = document.createTextNode(position_list[i].rx_time.toString());
+                 break;
+              }
+
+
+
+              cell.appendChild(cellText);
+              row.appendChild(cell);
+              }
+              //console.log(positions);
+              status_table_object.appendChild(row);
+        }
+        }
+        return;
+      }
+
+
 
 
 // Function for decoding string from unit number
@@ -127,12 +275,26 @@ function getJsonDataFromServer(url) {
   request.send(null);
 
   if (request.status === 200) {
-    console.log(JSON.parse(request.responseText));
+    //console.log(JSON.parse(request.responseText));
     // return parse json data
     return (JSON.parse(request.responseText));
   }
 }
 
+// Time converter function used courtesy of user "Pitu" on Stack Overflow
+// https://stackoverflow.com/a/6078873
+// function timeConverter(UNIX_timestamp){
+//   var a = new Date(UNIX_timestamp * 1000);
+//   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+//   var year = a.getFullYear();
+//   var month = months[a.getMonth()];
+//   var date = a.getDate();
+//   var hour = a.getHours();
+//   var min = a.getMinutes();
+//   var sec = a.getSeconds();
+//   var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+//   return time;
+// }
 
 // not used stuf down here
 // delete markers

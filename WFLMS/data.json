@@ -1,1 +1,25 @@
-[{"unit_number": 2, "emerg_flg": 1, "fline_stat": 0, "rsrc_stat": 1, "lat": 37.48080613345272, "lon": -122.2789886131669, "rx_time": 1590045013.923755}]
+[{
+  "unit_number": 3,
+  "emerg_flg": 0,
+  "fline_stat": 0,
+  "rsrc_stat": 1,
+  "lat": 37.48090613345272,
+  "lon": -122.2789886131669,
+  "rx_time": 1590045013.923755
+}, {
+  "unit_number": 45,
+  "emerg_flg": 1,
+  "fline_stat": 0,
+  "rsrc_stat": 2,
+  "lat": 37.48060613345272,
+  "lon": -122.2788886131669,
+  "rx_time": 1590045013.923755
+}, {
+  "unit_number": 802,
+  "emerg_flg": 0,
+  "fline_stat": 0,
+  "rsrc_stat": 2,
+  "lat": 37.48050613345272,
+  "lon": -122.2788886131669,
+  "rx_time": 1590045013.923755
+}]
