@@ -61,7 +61,7 @@ while True:
         try:
             decoded_pkt = decode_lora_packet(encoded_byteliteral)
         except UnicodeDecodeError:
-            break
+            pass
         packet_timer = time.time()
         display.fill(0)
         display.text('- PKT received -', 15, 20, 1)
