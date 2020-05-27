@@ -11,7 +11,7 @@ import adafruit_ssd1306		# Import the SSD1306 module
 import adafruit_rfm9x		# Import RFM9x
 
 import gpsd					# GPS Stuff
-gpsd.connect(host="25.59.204.143", port=2222) 				# connects to local GPSD
+gpsd.connect() 				# connects to local GPSD
 
 import mgrs					# GPS Coordinate Conversion Library
 import time					# Import Python System Libraries
