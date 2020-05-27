@@ -58,7 +58,10 @@ while True:
             display.show()
     else:
         encoded_byteliteral = BitArray(packet)
-        decoded_pkt = decode_lora_packet(encoded_byteliteral)
+        try:
+            decoded_pkt = decode_lora_packet(encoded_byteliteral)
+        except UnicodeDecodeError:
+            break
         packet_timer = time.time()
         display.fill(0)
         display.text('- PKT received -', 15, 20, 1)
