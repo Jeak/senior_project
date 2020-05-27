@@ -1,6 +1,6 @@
 # Python 3 WFLMS Implementation V1.0
 # Authors: Robert Goldie, Jack Gallegos, Cal Poly San Luis Obispo 2020
-
+# Transmit test file
 
 from wflms_libs	import *	# Import everything from wflmslibs file
 
@@ -277,10 +277,6 @@ currentStatus.DEST_NUM = 1
 packet_timer = 0
 
 while True:
-	currentStatus.MGRS_LOC = get_MGRS()
-	while (time.time() - packet_timer <= 1):
-			if ((not btnA.value) or (not btnB.value)):
-				currentStatus = main_menu(currentStatus)
 
 	main_display(currentStatus)
 	if ((not btnA.value) or (not btnB.value)):
