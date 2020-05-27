@@ -288,7 +288,7 @@ while True:
 	main_display(currentStatus)
 	if ((not btnA.value) or (not btnB.value)):
 		currentStatus = main_menu(currentStatus)
-	if (time.time() - packet_timer > 4):
+	if (time.time() - packet_timer > 3):
 		print("\nPacket before Encoding\n")
 		currentStatus.dump_to_console()
 
