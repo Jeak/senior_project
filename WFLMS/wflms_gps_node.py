@@ -280,7 +280,7 @@ packet_timer = 0
 
 # Main program routine
 while True:
-	currentStatus.MGRS_LOC = get_MGRS()
+
 	while (time.time() - packet_timer <= 1):
 			if ((not btnA.value) or (not btnB.value)):
 				currentStatus = main_menu(currentStatus)
@@ -289,6 +289,7 @@ while True:
 	if ((not btnA.value) or (not btnB.value)):
 		currentStatus = main_menu(currentStatus)
 	if (time.time() - packet_timer > 6):
+		currentStatus.MGRS_LOC = get_MGRS()
 		print("\nPacket before Encoding\n")
 		currentStatus.dump_to_console()
 
